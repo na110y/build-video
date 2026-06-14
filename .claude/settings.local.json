@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(ffmpeg *)",
+      "PowerShell($url = \"https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe\"; $out = \"$env:TEMP\\\\git-installer.exe\"; Write-Host \"Downloading Git...\"; Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing; Write-Host \"Done: $out\")",
+      "Bash(rm \"d:\\\\dich-truyen\\\\translate-comics\\\\output\\\\demo_VI.txt\" \"d:\\\\dich-truyen\\\\translate-comics\\\\output\\\\demo_VI.epub\")",
+      "Bash(python run.py)",
+      "Bash(python -c ':*)",
+      "Bash(powershell -Command ':*)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' https://metruyenchuvn.com/vo-luyen-dinh-phong/chuong-__TRACKED_VAR__ -H 'User-Agent: Mozilla/5.0')"
+    ]
+  }
+}
