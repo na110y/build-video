@@ -46,15 +46,15 @@ def _apply_pro_fx(input_path: Path, output_path: Path) -> None:
 def tts_storytelling_auto(text: str, output_path: str | Path, **kwargs) -> str:
     output_path = Path(output_path)
     clean_text = _sanitize_text(text)
-    
+
     # CHỈ CHIA ĐOẠN (Paragraph) KHÔNG CHIA CÂU
     # Chia theo xuống dòng \n để AI đọc dài hơi, lấy hơi đúng chỗ
     paragraphs = [p for p in clean_text.split('\n') if p.strip()]
-    
+
     temp_dir = output_path.parent / "temp_segments"
     temp_dir.mkdir(exist_ok=True, parents=True)
     audio_paths = []
-    
+
     for i, para in enumerate(paragraphs):
         if not para.strip(): continue
         p = temp_dir / f"seg_{i}.mp3"
