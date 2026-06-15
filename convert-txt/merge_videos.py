@@ -13,7 +13,7 @@ INPUT_DIR = Path(__file__).parent / "output" / "Võ Luyện Đỉnh Phong"
 OUTPUT_DIR = Path(__file__).parent.parent / "product" / "Võ Luyện Đỉnh Phong"
 AUDIO_ASSETS_DIR = Path(__file__).parent / "audio_assets"
 TEMP_DIR = Path(__file__).parent / "temp_merge"
-CHAPTERS_PER_EPISODE = 2
+CHAPTERS_PER_EPISODE = 20
 
 VOICE = "vi-VN-NamMinhNeural"
 STORY_NAME = "Võ Luyện Đỉnh Phong"
@@ -193,14 +193,15 @@ def add_outro_to_video(video_path: Path, outro_audio_path: Path, output_path: Pa
     list_file.unlink(missing_ok=True)
 
 def overlay_background_on_video(video_path: Path, output_path: Path, episode_num: int) -> None:
-    """Overlay thumbnail.jpg làm nền cho toàn bộ video"""
+    """Overlay video lên trên thumbnail.jpg làm background (image ở dưới full, video transparent overlay trên)"""
     cmd_overlay = [
         "ffmpeg", "-y",
-        "-i", str(video_path),
         "-loop", "1", "-i", str(BACKGROUND_IMAGE),
-        "-filter_complex", "[1]scale=1280:720[bg];[0]scale=1280:720[fg];[bg][fg]overlay=0:0",
+        "-i", str(video_path),
+        "-filter_complex", "[0]scale=1280:720[bg];[1]scale=1280:720[fg];[bg][fg]overlay=0:0",
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",
         "-c:a", "aac", "-b:a", "128k",
+        "-shortest",
         str(output_path)
     ]
     result = subprocess.run(cmd_overlay, capture_output=True, text=True)
